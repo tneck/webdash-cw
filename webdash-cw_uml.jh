@@ -1,0 +1,56 @@
+/*
+ *
+ * Entities
+ *
+ */
+entity Dashboard {
+	options String,
+	data1 String,
+	data2 String
+}
+entity WidgetTemplate {
+	name String required,
+	description String required,
+	dateCreated ZonedDateTime required,
+	dateLastModified ZonedDateTime,
+	currentVersion String required,
+	access WidgetAccess required,
+	shareCode String,
+	imagePreview ImageBlob,
+	options String,
+	contentUrl String, /* content of widget template is either hosted on an external site (-> url) or on WebDash CW (-> data attributes below) */ 
+	dataLibraries String,
+	dataHtml String,
+	dataCss String,
+	dataJavascript String,
+	dataInputVariables String
+}
+enum WidgetAccess {
+	PRIVATE, PRIVATE_SHARED, PUBLIC
+}
+entity WidgetTemplateCategory {
+	name String required,
+	description String,
+	image ImageBlob
+}
+/*
+ *
+ * Relationships
+ *
+ */
+relationship ManyToOne {
+	Dashboard{user(login)} to User 
+}
+relationship ManyToOne {
+	WidgetTemplate{creator(login)} to User
+}
+relationship ManyToOne {
+	WidgetTemplate{category(name)} to WidgetTemplateCategory
+}
+/*
+ *
+ * Pagination and Service Implementations
+ *
+ */
+paginate Dashboard, WidgetTemplate with pagination
+service Dashboard, WidgetTemplate, WidgetTemplateCategory with serviceImpl

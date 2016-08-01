@@ -15,4 +15,8 @@ public interface DashboardRepository extends JpaRepository<Dashboard,Long> {
     @Query("select dashboard from Dashboard dashboard where dashboard.user.login = ?#{principal.username}")
     List<Dashboard> findByUserIsCurrentUser();
 
+    Dashboard findOneByUserId(Long userId);
+
+    void deleteByUserId(Long userId);
+
 }

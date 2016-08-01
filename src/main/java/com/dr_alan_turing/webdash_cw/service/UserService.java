@@ -41,6 +41,9 @@ public class UserService {
     @Inject
     private AuthorityRepository authorityRepository;
 
+    @Inject
+    private DashboardService dashboardService;
+
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
         return userRepository.findOneByActivationKey(key)
@@ -96,13 +99,17 @@ public class UserService {
         newUser.setLastName(lastName);
         newUser.setEmail(email);
         newUser.setLangKey(langKey);
-        // new user is not active
-        newUser.setActivated(false);
+        // User not active upon registration (requires email verification):
+        //newUser.setActivated(false);
+        /* OR */
+        // User active upon registration (doesn't require email verification):
+        newUser.setActivated(true);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+        dashboardService.createForUser(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -130,6 +137,7 @@ public class UserService {
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(ZonedDateTime.now());
         user.setActivated(true);
+        dashboardService.createForUser(user);
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;
@@ -148,6 +156,7 @@ public class UserService {
 
     public void deleteUserInformation(String login) {
         userRepository.findOneByLogin(login).ifPresent(u -> {
+            dashboardService.deleteByUserId(u.getId());
             socialService.deleteUserSocialConnection(u.getLogin());
             userRepository.delete(u);
             log.debug("Deleted User: {}", u);
@@ -197,6 +206,7 @@ public class UserService {
         List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
+            dashboardService.deleteByUserId(user.getId());
             userRepository.delete(user);
         }
     }

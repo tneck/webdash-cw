@@ -1,4 +1,16 @@
-# WebDash_CW
+# WebDash CW: The Web Dashboard with Custom Widgets
+
+WebDash CW aims to provide users with an intuitive online dashboard on which they can place custom widgets - either made by themselves or shared by the community.
+
+Widgets are created using HTML, CSS and JavaScript code, along with any desired JS libraries. This makes for an infinite number of widget possibilities, a crucial factor that will empower the community-driven ecosystem of WebDash CW. This application is suited for both casual (non-technical) users as well as expert programmers and commercial businesses.
+
+## Project has just started, come back for more soon!
+
+Webdash CW development has just kicked off. Once the basis for this web application is ready, guides for contributing will be released and soon thereafter an early release version will be rolled out in a production environment (website).
+
+Star this project if you are interested and come back in the near future!
+
+## JHipster
 
 This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
 

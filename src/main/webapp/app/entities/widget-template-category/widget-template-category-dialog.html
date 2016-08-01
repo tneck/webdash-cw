@@ -1,0 +1,66 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myWidgetTemplateCategoryLabel" translate="webDashCwApp.widgetTemplateCategory.home.createOrEditLabel">Create or edit a Widget Template Category</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.widgetTemplateCategory.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.widgetTemplateCategory.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="webDashCwApp.widgetTemplateCategory.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.widgetTemplateCategory.name"
+                    required />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="webDashCwApp.widgetTemplateCategory.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.widgetTemplateCategory.description"
+                     />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="vm.setImage($file, vm.widgetTemplateCategory)" ngf-pattern="'image/*'">
+            <label class="control-label" translate="webDashCwApp.widgetTemplateCategory.image" for="field_image">Image</label>
+            <div>
+                <img data-ng-src="{{'data:' + vm.widgetTemplateCategory.imageContentType + ';base64,' + vm.widgetTemplateCategory.image}}" style="max-height: 100px;" ng-if="vm.widgetTemplateCategory.image"/>
+                <div ng-if="vm.widgetTemplateCategory.image" class="help-block clearfix">
+                    <span class="pull-left">{{vm.widgetTemplateCategory.imageContentType}}, {{vm.byteSize(vm.widgetTemplateCategory.image)}}</span>
+                    <button ng-click="vm.widgetTemplateCategory.image=null;vm.widgetTemplateCategory.imageContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="vm.setImage($file, vm.widgetTemplateCategory)" accept="image/*" translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="image" id="field_image"
+                    ng-model="vm.widgetTemplateCategory.image"
+                     />
+            <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
+                    ng-model="vm.widgetTemplateCategory.imageContentType" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

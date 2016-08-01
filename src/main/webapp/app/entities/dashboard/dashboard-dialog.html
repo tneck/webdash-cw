@@ -1,0 +1,50 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myDashboardLabel" translate="webDashCwApp.dashboard.home.createOrEditLabel">Create or edit a Dashboard</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.dashboard.id">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.dashboard.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="webDashCwApp.dashboard.options" for="field_options">Options</label>
+            <input type="text" class="form-control" name="options" id="field_options"
+                    ng-model="vm.dashboard.options"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="webDashCwApp.dashboard.data1" for="field_data1">Data 1</label>
+            <input type="text" class="form-control" name="data1" id="field_data1"
+                    ng-model="vm.dashboard.data1"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="webDashCwApp.dashboard.data2" for="field_data2">Data 2</label>
+            <input type="text" class="form-control" name="data2" id="field_data2"
+                    ng-model="vm.dashboard.data2"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="webDashCwApp.dashboard.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" ng-model="vm.dashboard.user" ng-options="user as user.login for user in vm.users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

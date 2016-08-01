@@ -1,0 +1,92 @@
+
+<div>
+    <h2><span translate="webDashCwApp.widgetTemplate.detail.title">Widget Template</span> {{vm.widgetTemplate.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="webDashCwApp.widgetTemplate.name">Name</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.name}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.description">Description</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.description}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.dateCreated">Date Created</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.dateCreated | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.dateLastModified">Date Last Modified</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.dateLastModified | date:'medium'}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.currentVersion">Current Version</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.currentVersion}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.access">Access</span></dt>
+        <dd>
+            <span translate="{{'webDashCwApp.WidgetAccess.' + vm.widgetTemplate.access}}">{{vm.widgetTemplate.access}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.shareCode">Share Code</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.shareCode}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.imagePreview">Image Preview</span></dt>
+        <dd>
+            <div ng-if="vm.widgetTemplate.imagePreview">
+                <a ng-click="vm.openFile(vm.widgetTemplate.imagePreviewContentType, vm.widgetTemplate.imagePreview)">
+                    <img data-ng-src="{{'data:' + vm.widgetTemplate.imagePreviewContentType + ';base64,' + vm.widgetTemplate.imagePreview}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.widgetTemplate.imagePreviewContentType}}, {{vm.byteSize(vm.widgetTemplate.imagePreview)}}
+            </div>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.options">Options</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.options}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.contentUrl">Content Url</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.contentUrl}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.dataLibraries">Data Libraries</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.dataLibraries}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.dataHtml">Data Html</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.dataHtml}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.dataCss">Data Css</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.dataCss}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.dataJavascript">Data Javascript</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.dataJavascript}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.dataInputVariables">Data Input Variables</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplate.dataInputVariables}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.creator">Creator</span></dt>
+        <dd>
+            {{vm.widgetTemplate.creator.login}}
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplate.category">Category</span></dt>
+        <dd>
+            <a ui-sref="widget-template-category-detail({id:vm.widgetTemplate.category.id})">{{vm.widgetTemplate.category.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="widget-template-detail.edit({id:vm.widgetTemplate.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

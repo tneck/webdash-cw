@@ -1,0 +1,24 @@
+{
+    "webDashCwApp": {
+        "widgetTemplateCategory" : {
+            "home": {
+                "title": "WidgetTemplateCategories",
+                "createLabel": "Créer un nouveau Widget Template Category",
+                "createOrEditLabel": "Créer ou éditer un Widget Template Category",
+                "search": "Recherche pour Widget Template Category"
+            },
+            "created": "Un nouveau Widget Template Category a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Widget Template Category avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Widget Template Category avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Widget Template Category {{ id }} ?"
+            },
+            "detail": {
+                "title": "Widget Template Category"
+            },
+            "name": "Name",
+            "description": "Description",
+            "image": "Image"
+        }
+    }
+}

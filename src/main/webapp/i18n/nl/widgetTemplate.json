@@ -1,0 +1,38 @@
+{
+    "webDashCwApp": {
+        "widgetTemplate" : {
+            "home": {
+                "title": "Widget Templates",
+                "createLabel": "Maak een nieuwe Widget Template",
+                "createOrEditLabel": "Maak of wijzig een Widget Template",
+                "search": "Search for Widget Template"
+            },
+            "created": "A new Widget Template is created with identifier {{ param }}",
+            "updated": "A Widget Template is updated with identifier {{ param }}",
+            "deleted": "A Widget Template is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Widget Template {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Widget Template"
+            },
+            "name": "Name",
+            "description": "Description",
+            "dateCreated": "Date Created",
+            "dateLastModified": "Date Last Modified",
+            "currentVersion": "Current Version",
+            "access": "Access",
+            "shareCode": "Share Code",
+            "imagePreview": "Image Preview",
+            "options": "Options",
+            "contentUrl": "Content Url",
+            "dataLibraries": "Data Libraries",
+            "dataHtml": "Data Html",
+            "dataCss": "Data Css",
+            "dataJavascript": "Data Javascript",
+            "dataInputVariables": "Data Input Variables",
+            "creator": "Creator",
+            "category": "Category"
+        }
+    }
+}

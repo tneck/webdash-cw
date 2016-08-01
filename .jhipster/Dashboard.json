@@ -1,0 +1,34 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "many-to-one",
+      "relationshipName": "user",
+      "otherEntityName": "user",
+      "otherEntityField": "login"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "options",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "data1",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "data2",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20160801164844",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "javadoc": "Entities",
+  "entityTableName": "dashboard"
+}

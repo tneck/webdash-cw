@@ -1,0 +1,29 @@
+{
+  "relationships": [],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "changelogDate": "20160801164846",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "entityTableName": "widget_template_category"
+}

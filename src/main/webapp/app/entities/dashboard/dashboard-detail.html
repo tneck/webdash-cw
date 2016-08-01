@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span translate="webDashCwApp.dashboard.detail.title">Dashboard</span> {{vm.dashboard.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="webDashCwApp.dashboard.options">Options</span></dt>
+        <dd>
+            <span>{{vm.dashboard.options}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.dashboard.data1">Data 1</span></dt>
+        <dd>
+            <span>{{vm.dashboard.data1}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.dashboard.data2">Data 2</span></dt>
+        <dd>
+            <span>{{vm.dashboard.data2}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.dashboard.user">User</span></dt>
+        <dd>
+            {{vm.dashboard.user.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="dashboard-detail.edit({id:vm.dashboard.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

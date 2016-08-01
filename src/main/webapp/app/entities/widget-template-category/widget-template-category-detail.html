@@ -1,0 +1,36 @@
+
+<div>
+    <h2><span translate="webDashCwApp.widgetTemplateCategory.detail.title">Widget Template Category</span> {{vm.widgetTemplateCategory.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span translate="webDashCwApp.widgetTemplateCategory.name">Name</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplateCategory.name}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplateCategory.description">Description</span></dt>
+        <dd>
+            <span>{{vm.widgetTemplateCategory.description}}</span>
+        </dd>
+        <dt><span translate="webDashCwApp.widgetTemplateCategory.image">Image</span></dt>
+        <dd>
+            <div ng-if="vm.widgetTemplateCategory.image">
+                <a ng-click="vm.openFile(vm.widgetTemplateCategory.imageContentType, vm.widgetTemplateCategory.image)">
+                    <img data-ng-src="{{'data:' + vm.widgetTemplateCategory.imageContentType + ';base64,' + vm.widgetTemplateCategory.image}}" style="max-width: 100%;"/>
+                </a>
+                {{vm.widgetTemplateCategory.imageContentType}}, {{vm.byteSize(vm.widgetTemplateCategory.image)}}
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="widget-template-category-detail.edit({id:vm.widgetTemplateCategory.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

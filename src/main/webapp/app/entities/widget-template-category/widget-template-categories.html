@@ -1,0 +1,65 @@
+<div>
+    <h2 translate="webDashCwApp.widgetTemplateCategory.home.title">Widget Template Categories</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="widget-template-category.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  translate="webDashCwApp.widgetTemplateCategory.home.createLabel">
+                        Create new Widget Template Category
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span translate="global.field.id">ID</span></th>
+                    <th><span translate="webDashCwApp.widgetTemplateCategory.name">Name</span></th>
+                    <th><span translate="webDashCwApp.widgetTemplateCategory.description">Description</span></th>
+                    <th><span translate="webDashCwApp.widgetTemplateCategory.image">Image</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="widgetTemplateCategory in vm.widgetTemplateCategories track by widgetTemplateCategory.id">
+                    <td><a ui-sref="widget-template-category-detail({id:widgetTemplateCategory.id})">{{widgetTemplateCategory.id}}</a></td>
+                    <td>{{widgetTemplateCategory.name}}</td>
+                    <td>{{widgetTemplateCategory.description}}</td>
+                    <td>
+                        <a ng-if="widgetTemplateCategory.image" ng-click="vm.openFile(widgetTemplateCategory.imageContentType, widgetTemplateCategory.image)">
+                            <img data-ng-src="{{'data:' + widgetTemplateCategory.imageContentType + ';base64,' + widgetTemplateCategory.image}}" style="max-height: 30px;"/>
+                        </a>
+                        <span ng-if="widgetTemplateCategory.image">{{widgetTemplateCategory.imageContentType}}, {{vm.byteSize(widgetTemplateCategory.image)}}</span>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="widget-template-category-detail({id:widgetTemplateCategory.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="widget-template-category.edit({id:widgetTemplateCategory.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="widget-template-category.delete({id:widgetTemplateCategory.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

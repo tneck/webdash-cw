@@ -1,0 +1,24 @@
+{
+    "webDashCwApp": {
+        "widgetTemplateCategory" : {
+            "home": {
+                "title": "Widget Template Categories",
+                "createLabel": "Maak een nieuwe Widget Template Category",
+                "createOrEditLabel": "Maak of wijzig een Widget Template Category",
+                "search": "Search for Widget Template Category"
+            },
+            "created": "A new Widget Template Category is created with identifier {{ param }}",
+            "updated": "A Widget Template Category is updated with identifier {{ param }}",
+            "deleted": "A Widget Template Category is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Widget Template Category {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Widget Template Category"
+            },
+            "name": "Name",
+            "description": "Description",
+            "image": "Image"
+        }
+    }
+}

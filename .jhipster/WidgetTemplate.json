@@ -1,0 +1,118 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "many-to-one",
+      "relationshipName": "creator",
+      "otherEntityName": "user",
+      "otherEntityField": "login"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-one",
+      "relationshipName": "category",
+      "otherEntityName": "widgetTemplateCategory",
+      "otherEntityField": "name"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "dateCreated",
+      "fieldType": "ZonedDateTime",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "dateLastModified",
+      "fieldType": "ZonedDateTime"
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "currentVersion",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 6,
+      "fieldName": "access",
+      "fieldType": "WidgetAccess",
+      "fieldValues": "PRIVATE,PRIVATE_SHARED,PUBLIC",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 7,
+      "fieldName": "shareCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 8,
+      "fieldName": "imagePreview",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldId": 9,
+      "fieldName": "options",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 10,
+      "fieldName": "contentUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 11,
+      "fieldName": "dataLibraries",
+      "javadoc": "content of widget template is either hosted on an external site (-> url) or on WebDash CW (-> data attributes below)",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 12,
+      "fieldName": "dataHtml",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 13,
+      "fieldName": "dataCss",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 14,
+      "fieldName": "dataJavascript",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 15,
+      "fieldName": "dataInputVariables",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20160801164845",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "entityTableName": "widget_template"
+}

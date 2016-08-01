@@ -1,0 +1,25 @@
+{
+    "webDashCwApp": {
+        "dashboard" : {
+            "home": {
+                "title": "Dashboards",
+                "createLabel": "Maak een nieuwe Dashboard",
+                "createOrEditLabel": "Maak of wijzig een Dashboard",
+                "search": "Search for Dashboard"
+            },
+            "created": "A new Dashboard is created with identifier {{ param }}",
+            "updated": "A Dashboard is updated with identifier {{ param }}",
+            "deleted": "A Dashboard is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Bent u zeker dat u Dashboard {{ id }} wilt verwijderen?"
+            },
+            "detail": {
+                "title": "Dashboard"
+            },
+            "options": "Options",
+            "data1": "Data 1",
+            "data2": "Data 2",
+            "user": "User"
+        }
+    }
+}

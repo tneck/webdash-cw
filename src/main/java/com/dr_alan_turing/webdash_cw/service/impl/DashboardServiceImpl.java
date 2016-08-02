@@ -36,7 +36,7 @@ public class DashboardServiceImpl implements DashboardService{
     public Dashboard save(Dashboard dashboard) {
         log.debug("Request to save Dashboard : {}", dashboard);
         Dashboard existingDashboard = dashboardRepository.findOneByUserId( dashboard.getUser() == null ? null : dashboard.getUser().getId() );
-        if(existingDashboard != null && existingDashboard.getId() != dashboard.getId()){
+        if(existingDashboard != null && !existingDashboard.getId().equals(dashboard.getId())){
             throw new CustomParameterizedException("The given user already has a dashboard.");
         }
         Dashboard result = dashboardRepository.save(dashboard);

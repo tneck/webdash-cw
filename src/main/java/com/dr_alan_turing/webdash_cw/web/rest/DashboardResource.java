@@ -2,7 +2,9 @@ package com.dr_alan_turing.webdash_cw.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.dr_alan_turing.webdash_cw.domain.Dashboard;
+import com.dr_alan_turing.webdash_cw.domain.User;
 import com.dr_alan_turing.webdash_cw.service.DashboardService;
+import com.dr_alan_turing.webdash_cw.service.UserService;
 import com.dr_alan_turing.webdash_cw.web.rest.util.HeaderUtil;
 import com.dr_alan_turing.webdash_cw.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -29,10 +31,13 @@ import java.util.Optional;
 public class DashboardResource {
 
     private final Logger log = LoggerFactory.getLogger(DashboardResource.class);
-        
+
     @Inject
     private DashboardService dashboardService;
-    
+
+    @Inject
+    private UserService userService;
+
     /**
      * POST  /dashboards : Create a new dashboard.
      *
@@ -56,7 +61,7 @@ public class DashboardResource {
     }
 
     /**
-     * PUT  /dashboards : Updates an existing dashboard.
+     * PUT  /dashboards : Update an existing dashboard.
      *
      * @param dashboard the dashboard to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated dashboard,
@@ -80,7 +85,39 @@ public class DashboardResource {
     }
 
     /**
-     * GET  /dashboards : get all the dashboards.
+     * PUT  /dashboards/my : Update dashboard of logged in user.
+     *
+     * @param dashboard the updated dashboard
+     * @return the ResponseEntity with status 200 (OK) and with body the updated dashboard,
+     * or with status 400 (Bad Request) if the dashboard is not valid,
+     * or with status 500 (Internal Server Error) if the dashboard couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @RequestMapping(value = "/dashboards/my",
+        method = RequestMethod.PUT,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Dashboard> updateMyDashboard(@RequestBody Dashboard dashboard) throws URISyntaxException {
+        Long myId = userService.getLoggedInUserId();
+        log.debug("REST request to update Dashboard of User with id : {}", myId);
+        Dashboard existingDashboard = dashboardService.findOneByUserId(myId);
+        if(existingDashboard == null) {
+            dashboard.setUser(userService.getUserWithAuthorities());
+            return createDashboard(dashboard);
+        }
+        existingDashboard.setData1(dashboard.getData1());
+        existingDashboard.setData2(dashboard.getData2());
+        existingDashboard.setOptions(dashboard.getOptions());
+        Dashboard result = dashboardService.save(existingDashboard);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert("dashboard", existingDashboard.getId().toString()))
+            .body(result);
+    }
+
+
+
+    /**
+     * GET  /dashboards : Get all the dashboards.
      *
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of dashboards in body
@@ -93,13 +130,13 @@ public class DashboardResource {
     public ResponseEntity<List<Dashboard>> getAllDashboards(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Dashboards");
-        Page<Dashboard> page = dashboardService.findAll(pageable); 
+        Page<Dashboard> page = dashboardService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/dashboards");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /dashboards/:id : get the "id" dashboard.
+     * GET  /dashboards/:id : Get the "id" dashboard.
      *
      * @param id the id of the dashboard to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the dashboard, or with status 404 (Not Found)
@@ -119,7 +156,28 @@ public class DashboardResource {
     }
 
     /**
-     * DELETE  /dashboards/:id : delete the "id" dashboard.
+     * GET  /dashboards/my : Get the dashboard of the logged in user.
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the dashboard, or with status 404 (Not Found)
+     */
+    @RequestMapping(value = "/dashboards/my",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Dashboard> getMyDashboard() {
+        Long myId = userService.getLoggedInUserId();
+        log.debug("REST request to get Dashboard of User with id {}", myId);
+        Dashboard dashboard = dashboardService.findOneByUserId(myId);
+        return Optional.ofNullable(dashboard)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
+    /**
+     * DELETE  /dashboards/:id : Delete the "id" dashboard.
      *
      * @param id the id of the dashboard to delete
      * @return the ResponseEntity with status 200 (OK)

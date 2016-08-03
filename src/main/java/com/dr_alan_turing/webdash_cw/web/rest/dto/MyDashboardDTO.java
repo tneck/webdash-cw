@@ -1,5 +1,7 @@
 package com.dr_alan_turing.webdash_cw.web.rest.dto;
 
+import com.dr_alan_turing.webdash_cw.domain.Dashboard;
+
 /**
  * Created by Dr-Alan-Turing on 03/08/2016.
  */
@@ -11,10 +13,18 @@ public class MyDashboardDTO {
 
     private String data2;
 
+    public MyDashboardDTO() {
+        /* empty constructor */
+    }
+
     public MyDashboardDTO(String options, String data1, String data2) {
         setOptions(options);
         setData1(data1);
         setData2(data2);
+    }
+
+    public MyDashboardDTO(Dashboard dashboard) {
+        this(dashboard.getOptions(), dashboard.getData1(), dashboard.getData2());
     }
 
     public String getOptions() {

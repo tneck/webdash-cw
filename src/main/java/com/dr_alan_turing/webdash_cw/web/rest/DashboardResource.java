@@ -5,6 +5,7 @@ import com.dr_alan_turing.webdash_cw.domain.Dashboard;
 import com.dr_alan_turing.webdash_cw.domain.User;
 import com.dr_alan_turing.webdash_cw.service.DashboardService;
 import com.dr_alan_turing.webdash_cw.service.UserService;
+import com.dr_alan_turing.webdash_cw.web.rest.dto.MyDashboardDTO;
 import com.dr_alan_turing.webdash_cw.web.rest.util.HeaderUtil;
 import com.dr_alan_turing.webdash_cw.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -87,7 +88,7 @@ public class DashboardResource {
     /**
      * PUT  /dashboards/my : Update dashboard of logged in user.
      *
-     * @param dashboard the updated dashboard
+     * @param dashboardDTO the updated dashboard
      * @return the ResponseEntity with status 200 (OK) and with body the updated dashboard,
      * or with status 400 (Bad Request) if the dashboard is not valid,
      * or with status 500 (Internal Server Error) if the dashboard couldnt be updated
@@ -97,24 +98,19 @@ public class DashboardResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Dashboard> updateMyDashboard(@RequestBody Dashboard dashboard) throws URISyntaxException {
+    public ResponseEntity<MyDashboardDTO> updateMyDashboard(@RequestBody MyDashboardDTO dashboardDTO) throws URISyntaxException {
         Long myId = userService.getLoggedInUserId();
         log.debug("REST request to update Dashboard of User with id : {}", myId);
-        Dashboard existingDashboard = dashboardService.findOneByUserId(myId);
-        if(existingDashboard == null) {
-            dashboard.setUser(userService.getUserWithAuthorities());
-            return createDashboard(dashboard);
-        }
-        existingDashboard.setData1(dashboard.getData1());
-        existingDashboard.setData2(dashboard.getData2());
-        existingDashboard.setOptions(dashboard.getOptions());
-        Dashboard result = dashboardService.save(existingDashboard);
+        Dashboard dashboard = dashboardService.findOneByUserId(myId);
+        // TO-DO: Check + handle if no dashboard found
+        dashboard.setData1(dashboardDTO.getData1());
+        dashboard.setData2(dashboardDTO.getData2());
+        dashboard.setOptions(dashboardDTO.getOptions());
+        Dashboard result = dashboardService.save(dashboard);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert("dashboard", existingDashboard.getId().toString()))
-            .body(result);
+            .headers(HeaderUtil.createEntityUpdateAlert("dashboard", dashboard.getId().toString()))
+            .body(dashboardDTO);
     }
-
-
 
     /**
      * GET  /dashboards : Get all the dashboards.
@@ -164,11 +160,11 @@ public class DashboardResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Dashboard> getMyDashboard() {
+    public ResponseEntity<MyDashboardDTO> getMyDashboard() {
         Long myId = userService.getLoggedInUserId();
         log.debug("REST request to get Dashboard of User with id {}", myId);
         Dashboard dashboard = dashboardService.findOneByUserId(myId);
-        return Optional.ofNullable(dashboard)
+        return Optional.ofNullable(new MyDashboardDTO(dashboard))
             .map(result -> new ResponseEntity<>(
                 result,
                 HttpStatus.OK))

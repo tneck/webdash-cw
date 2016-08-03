@@ -7,22 +7,36 @@ import com.dr_alan_turing.webdash_cw.domain.Dashboard;
  */
 public class MyDashboardDTO {
 
+
     private String options;
 
     private String data1;
 
     private String data2;
 
-    public MyDashboardDTO() {
-        /* empty constructor */
-    }
+    /**
+     * Empty constructor
+     */
+    public MyDashboardDTO() {}
 
+    /**
+     * Full constructor
+     *
+     * @param options
+     * @param data1
+     * @param data2
+     */
     public MyDashboardDTO(String options, String data1, String data2) {
         this.options = options;
         this.data1 = data1;
         this.data2 = data2;
     }
 
+    /**
+     * Constructor that copies attributes from related domain entity
+     *
+     * @param dashboard
+     */
     public MyDashboardDTO(Dashboard dashboard) {
         this(dashboard.getOptions(), dashboard.getData1(), dashboard.getData2());
     }

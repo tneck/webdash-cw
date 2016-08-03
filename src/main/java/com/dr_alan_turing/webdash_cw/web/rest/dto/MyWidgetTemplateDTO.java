@@ -6,7 +6,7 @@ import com.dr_alan_turing.webdash_cw.domain.enumeration.WidgetAccess;
 import java.time.ZonedDateTime;
 
 /**
- * Created by Tom on 04/08/2016.
+ * Created by Dr-Alan-Turing on 04/08/2016.
  */
 public class MyWidgetTemplateDTO {
 
@@ -34,10 +34,27 @@ public class MyWidgetTemplateDTO {
 
     private String contentUrl;
 
-    public MyWidgetTemplateDTO() {
-        /* empty constructor */
-    }
+    /**
+     * Empty constructor
+     */
+    public MyWidgetTemplateDTO() {}
 
+    /**
+     * Full constructor
+     *
+     * @param id
+     * @param name
+     * @param description
+     * @param dateCreated
+     * @param dateLastModified
+     * @param currentVersion
+     * @param access
+     * @param shareCode
+     * @param imagePreview
+     * @param imagePreviewContentType
+     * @param options
+     * @param contentUrl
+     */
     public MyWidgetTemplateDTO(Long id, String name, String description, ZonedDateTime dateCreated, ZonedDateTime dateLastModified, String currentVersion, WidgetAccess access, String shareCode, byte[] imagePreview, String imagePreviewContentType, String options, String contentUrl) {
         this.id = id;
         this.name = name;
@@ -53,6 +70,10 @@ public class MyWidgetTemplateDTO {
         this.contentUrl = contentUrl;
     }
 
+    /**
+     * Constructor that copies attributes from related domain entity
+     * @param widgetTemplate
+     */
     public MyWidgetTemplateDTO(WidgetTemplate widgetTemplate) {
         this(widgetTemplate.getId(), widgetTemplate.getName(), widgetTemplate.getDescription(), widgetTemplate.getDateCreated(), widgetTemplate.getDateLastModified(), widgetTemplate.getCurrentVersion(), widgetTemplate.getAccess(), widgetTemplate.getShareCode(), widgetTemplate.getImagePreview(), widgetTemplate.getImagePreviewContentType(), widgetTemplate.getOptions(), widgetTemplate.getContentUrl());
     }

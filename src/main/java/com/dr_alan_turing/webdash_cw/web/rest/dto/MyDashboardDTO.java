@@ -18,9 +18,9 @@ public class MyDashboardDTO {
     }
 
     public MyDashboardDTO(String options, String data1, String data2) {
-        setOptions(options);
-        setData1(data1);
-        setData2(data2);
+        this.options = options;
+        this.data1 = data1;
+        this.data2 = data2;
     }
 
     public MyDashboardDTO(Dashboard dashboard) {

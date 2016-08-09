@@ -14,6 +14,12 @@
                     ng-model="vm.widgetTemplate.id" readonly />
         </div>
         <div class="form-group">
+            <label translate="webDashCwApp.widgetTemplate.category" for="field_category">Category</label>
+            <select class="form-control" id="field_category" name="category" ng-model="vm.widgetTemplate.category" ng-options="widgetTemplateCategory as widgetTemplateCategory.name for widgetTemplateCategory in vm.widgettemplatecategories track by widgetTemplateCategory.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
             <label class="control-label" translate="webDashCwApp.widgetTemplate.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
                     ng-model="vm.widgetTemplate.name"
@@ -37,6 +43,7 @@
                 </p>
             </div>
         </div>
+        <!--
         <div class="form-group">
             <label class="control-label" translate="webDashCwApp.widgetTemplate.dateCreated" for="field_dateCreated">Date Created</label>
                 <div class="input-group">
@@ -57,6 +64,8 @@
                 </p>
             </div>
         </div>
+        -->
+        <!--
         <div class="form-group">
             <label class="control-label" translate="webDashCwApp.widgetTemplate.dateLastModified" for="field_dateLastModified">Date Last Modified</label>
                 <div class="input-group">
@@ -67,6 +76,7 @@
                     </span>
                 </div>
         </div>
+        -->
         <div class="form-group">
             <label class="control-label" translate="webDashCwApp.widgetTemplate.currentVersion" for="field_currentVersion">Current Version</label>
             <input type="text" class="form-control" name="currentVersion" id="field_currentVersion"
@@ -93,11 +103,23 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
+        <div ng-show="vm.widgetTemplate.access == 'PRIVATE_SHARED'" class="form-group">
             <label class="control-label" translate="webDashCwApp.widgetTemplate.shareCode" for="field_shareCode">Share Code</label>
             <input type="text" class="form-control" name="shareCode" id="field_shareCode"
                     ng-model="vm.widgetTemplate.shareCode"
-                     />
+                    ng-required="vm.widgetTemplate.access == 'PRIVATE_SHARED'" />
+            <div ng-show="editForm.shareCode.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.shareCode.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="webDashCwApp.widgetTemplate.options" for="field_options">Options</label>
+            <input type="text" class="form-control" name="options" id="field_options"
+                   ng-model="vm.widgetTemplate.options"
+            />
         </div>
         <div class="form-group" ngf-drop ngf-change="vm.setImagePreview($file, vm.widgetTemplate)" ngf-pattern="'image/*'">
             <label class="control-label" translate="webDashCwApp.widgetTemplate.imagePreview" for="field_imagePreview">Image Preview</label>
@@ -122,59 +144,71 @@
                     ng-model="vm.widgetTemplate.imagePreviewContentType" />
         </div>
         <div class="form-group">
-            <label class="control-label" translate="webDashCwApp.widgetTemplate.options" for="field_options">Options</label>
-            <input type="text" class="form-control" name="options" id="field_options"
-                    ng-model="vm.widgetTemplate.options"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="webDashCwApp.widgetTemplate.contentUrl" for="field_contentUrl">Content Url</label>
-            <input type="text" class="form-control" name="contentUrl" id="field_contentUrl"
-                    ng-model="vm.widgetTemplate.contentUrl"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="webDashCwApp.widgetTemplate.dataLibraries" for="field_dataLibraries">Data Libraries</label>
-            <input type="text" class="form-control" name="dataLibraries" id="field_dataLibraries"
-                    ng-model="vm.widgetTemplate.dataLibraries"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="webDashCwApp.widgetTemplate.dataHtml" for="field_dataHtml">Data Html</label>
-            <input type="text" class="form-control" name="dataHtml" id="field_dataHtml"
-                    ng-model="vm.widgetTemplate.dataHtml"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="webDashCwApp.widgetTemplate.dataCss" for="field_dataCss">Data Css</label>
-            <input type="text" class="form-control" name="dataCss" id="field_dataCss"
-                    ng-model="vm.widgetTemplate.dataCss"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="webDashCwApp.widgetTemplate.dataJavascript" for="field_dataJavascript">Data Javascript</label>
-            <input type="text" class="form-control" name="dataJavascript" id="field_dataJavascript"
-                    ng-model="vm.widgetTemplate.dataJavascript"
-                     />
-        </div>
-        <div class="form-group">
-            <label class="control-label" translate="webDashCwApp.widgetTemplate.dataInputVariables" for="field_dataInputVariables">Data Input Variables</label>
-            <input type="text" class="form-control" name="dataInputVariables" id="field_dataInputVariables"
-                    ng-model="vm.widgetTemplate.dataInputVariables"
-                     />
-        </div>
-
-        <div class="form-group">
             <label translate="webDashCwApp.widgetTemplate.creator" for="field_creator">Creator</label>
             <select class="form-control" id="field_creator" name="creator" ng-model="vm.widgetTemplate.creator" ng-options="user as user.login for user in vm.users track by user.id">
                 <option value=""></option>
             </select>
         </div>
         <div class="form-group">
-            <label translate="webDashCwApp.widgetTemplate.category" for="field_category">Category</label>
-            <select class="form-control" id="field_category" name="category" ng-model="vm.widgetTemplate.category" ng-options="widgetTemplateCategory as widgetTemplateCategory.name for widgetTemplateCategory in vm.widgettemplatecategories track by widgetTemplateCategory.id">
-                <option value=""></option>
+            <label class="control-label" translate="webDashCwApp.widgetTemplate.contentType" for="field_contentType">Content Type</label>
+            <select class="form-control" name="contentType" ng-model="vm.widgetTemplateContentType" id="field_contentType" required><!--NOTE: Not vm.widgetTemplate.contentType because contentType is not actually a property of WidgetTemplate -->
+                <option value="URL" translate="webDashCwApp.widgetTemplate.contentTypeUrl">URL</option>
+                <option value="DATA" translate="webDashCwApp.widgetTemplate.contentTypeData">DATA</option>
             </select>
+            <div ng-show="editForm.contentType.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.contentType.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div ng-show="vm.widgetTemplateContentType == 'URL'" >
+            <!-- Content Type = URL -->
+            <div class="form-group">
+                <label class="control-label" translate="webDashCwApp.widgetTemplate.contentUrl" for="field_contentUrl">Content Url</label>
+                <input type="text" class="form-control" name="contentUrl" id="field_contentUrl"
+                       ng-model="vm.widgetTemplate.contentUrl"
+                       ng-required="vm.widgetTemplateContentType == 'URL'" />
+                <div ng-show="editForm.contentUrl.$invalid">
+                    <p class="help-block"
+                       ng-show="editForm.contentUrl.$error.required" translate="entity.validation.required">
+                        This field is required.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div  ng-show="vm.widgetTemplateContentType == 'DATA'">
+            <!-- Content Type = DATA -->
+            <div class="form-group">
+                <label class="control-label" translate="webDashCwApp.widgetTemplate.dataLibraries" for="field_dataLibraries">Data Libraries</label>
+                <input type="text" class="form-control" name="dataLibraries" id="field_dataLibraries"
+                       ng-model="vm.widgetTemplate.dataLibraries"
+                />
+            </div>
+            <div class="form-group">
+                <label class="control-label" translate="webDashCwApp.widgetTemplate.dataHtml" for="field_dataHtml">Data Html</label>
+                <input type="text" class="form-control" name="dataHtml" id="field_dataHtml"
+                       ng-model="vm.widgetTemplate.dataHtml"
+                />
+            </div>
+            <div class="form-group">
+                <label class="control-label" translate="webDashCwApp.widgetTemplate.dataCss" for="field_dataCss">Data Css</label>
+                <input type="text" class="form-control" name="dataCss" id="field_dataCss"
+                       ng-model="vm.widgetTemplate.dataCss"
+                />
+            </div>
+            <div class="form-group">
+                <label class="control-label" translate="webDashCwApp.widgetTemplate.dataJavascript" for="field_dataJavascript">Data Javascript</label>
+                <input type="text" class="form-control" name="dataJavascript" id="field_dataJavascript"
+                       ng-model="vm.widgetTemplate.dataJavascript"
+                />
+            </div>
+            <div class="form-group">
+                <label class="control-label" translate="webDashCwApp.widgetTemplate.dataInputVariables" for="field_dataInputVariables">Data Input Variables</label>
+                <input type="text" class="form-control" name="dataInputVariables" id="field_dataInputVariables"
+                       ng-model="vm.widgetTemplate.dataInputVariables"
+                />
+            </div>
         </div>
     </div>
     <div class="modal-footer">

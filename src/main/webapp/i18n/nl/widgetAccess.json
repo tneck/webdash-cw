@@ -1,0 +1,10 @@
+{
+    "webDashCwApp": {
+        "WidgetAccess" : {
+            "null": "",
+            "PRIVATE": "PRIVATE",
+            "PRIVATE_SHARED": "PRIVATE_SHARED",
+            "PUBLIC": "PUBLIC"
+        }
+    }
+}

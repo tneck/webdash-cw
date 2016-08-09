@@ -20,20 +20,8 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span translate="webDashCwApp.widgetTemplate.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="description"><span translate="webDashCwApp.widgetTemplate.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="dateCreated"><span translate="webDashCwApp.widgetTemplate.dateCreated">Date Created</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="dateLastModified"><span translate="webDashCwApp.widgetTemplate.dateLastModified">Date Last Modified</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="currentVersion"><span translate="webDashCwApp.widgetTemplate.currentVersion">Current Version</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="access"><span translate="webDashCwApp.widgetTemplate.access">Access</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="shareCode"><span translate="webDashCwApp.widgetTemplate.shareCode">Share Code</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="imagePreview"><span translate="webDashCwApp.widgetTemplate.imagePreview">Image Preview</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="options"><span translate="webDashCwApp.widgetTemplate.options">Options</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="contentUrl"><span translate="webDashCwApp.widgetTemplate.contentUrl">Content Url</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="dataLibraries"><span translate="webDashCwApp.widgetTemplate.dataLibraries">Data Libraries</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="dataHtml"><span translate="webDashCwApp.widgetTemplate.dataHtml">Data Html</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="dataCss"><span translate="webDashCwApp.widgetTemplate.dataCss">Data Css</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="dataJavascript"><span translate="webDashCwApp.widgetTemplate.dataJavascript">Data Javascript</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="dataInputVariables"><span translate="webDashCwApp.widgetTemplate.dataInputVariables">Data Input Variables</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="creator.login"><span translate="webDashCwApp.widgetTemplate.creator">Creator</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="category.name"><span translate="webDashCwApp.widgetTemplate.category">Category</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
@@ -43,25 +31,8 @@
                 <tr ng-repeat="widgetTemplate in vm.widgetTemplates track by widgetTemplate.id">
                     <td><a ui-sref="widget-template-detail({id:widgetTemplate.id})">{{widgetTemplate.id}}</a></td>
                     <td>{{widgetTemplate.name}}</td>
-                    <td>{{widgetTemplate.description}}</td>
-                    <td>{{widgetTemplate.dateCreated | date:'medium'}}</td>
                     <td>{{widgetTemplate.dateLastModified | date:'medium'}}</td>
-                    <td>{{widgetTemplate.currentVersion}}</td>
                     <td translate="{{'webDashCwApp.WidgetAccess.' + widgetTemplate.access}}">{{widgetTemplate.access}}</td>
-                    <td>{{widgetTemplate.shareCode}}</td>
-                    <td>
-                        <a ng-if="widgetTemplate.imagePreview" ng-click="vm.openFile(widgetTemplate.imagePreviewContentType, widgetTemplate.imagePreview)">
-                            <img data-ng-src="{{'data:' + widgetTemplate.imagePreviewContentType + ';base64,' + widgetTemplate.imagePreview}}" style="max-height: 30px;"/>
-                        </a>
-                        <span ng-if="widgetTemplate.imagePreview">{{widgetTemplate.imagePreviewContentType}}, {{vm.byteSize(widgetTemplate.imagePreview)}}</span>
-                    </td>
-                    <td>{{widgetTemplate.options}}</td>
-                    <td>{{widgetTemplate.contentUrl}}</td>
-                    <td>{{widgetTemplate.dataLibraries}}</td>
-                    <td>{{widgetTemplate.dataHtml}}</td>
-                    <td>{{widgetTemplate.dataCss}}</td>
-                    <td>{{widgetTemplate.dataJavascript}}</td>
-                    <td>{{widgetTemplate.dataInputVariables}}</td>
                     <td>
                         {{widgetTemplate.creator.login}}
                     </td>

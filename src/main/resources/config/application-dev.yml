@@ -26,7 +26,7 @@ spring:
         password:
     h2:
         console:
-            enabled: true
+            enabled: false
     jpa:
         database-platform: com.dr_alan_turing.webdash_cw.domain.util.FixedH2Dialect
         database: H2

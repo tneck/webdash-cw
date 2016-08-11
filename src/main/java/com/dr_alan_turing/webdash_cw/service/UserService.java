@@ -203,6 +203,11 @@ public class UserService {
         return loggedInUser == null ? null : loggedInUser.getId();
     }
 
+    @Transactional(readOnly = true)
+    public boolean isLoggedInUserAdmin() {
+        return SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN);
+    }
+
     /**
      * Not activated users should be automatically deleted after 3 days.
      * <p>

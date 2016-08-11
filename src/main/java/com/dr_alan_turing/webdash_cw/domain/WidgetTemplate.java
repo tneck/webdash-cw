@@ -34,7 +34,6 @@ public class WidgetTemplate implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @NotNull
     @Column(name = "date_created", nullable = false)
     private ZonedDateTime dateCreated;
 
@@ -68,7 +67,7 @@ public class WidgetTemplate implements Serializable {
 
     /**
      * content of widget template is either hosted on an external site (-> url) or on WebDash CW (-> data attributes below)
-     * 
+     *
      */
     @ApiModelProperty(value = ""
         + "content of widget template is either hosted on an external site (-> url) or on WebDash CW (-> data attributes below)"

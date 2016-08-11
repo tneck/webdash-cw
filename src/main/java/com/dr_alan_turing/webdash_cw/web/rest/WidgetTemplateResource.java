@@ -1,8 +1,12 @@
 package com.dr_alan_turing.webdash_cw.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.dr_alan_turing.webdash_cw.domain.User;
 import com.dr_alan_turing.webdash_cw.domain.WidgetTemplate;
+import com.dr_alan_turing.webdash_cw.security.AuthoritiesConstants;
+import com.dr_alan_turing.webdash_cw.service.UserService;
 import com.dr_alan_turing.webdash_cw.service.WidgetTemplateService;
+import com.dr_alan_turing.webdash_cw.web.rest.errors.CustomParameterizedException;
 import com.dr_alan_turing.webdash_cw.web.rest.util.HeaderUtil;
 import com.dr_alan_turing.webdash_cw.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -19,6 +23,8 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +36,13 @@ import java.util.Optional;
 public class WidgetTemplateResource {
 
     private final Logger log = LoggerFactory.getLogger(WidgetTemplateResource.class);
-        
+
     @Inject
     private WidgetTemplateService widgetTemplateService;
-    
+
+    @Inject
+    private UserService userService;
+
     /**
      * POST  /widget-templates : Create a new widgetTemplate.
      *
@@ -50,6 +59,14 @@ public class WidgetTemplateResource {
         if (widgetTemplate.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("widgetTemplate", "idexists", "A new widgetTemplate cannot already have an ID")).body(null);
         }
+        // Set auto-determined properties
+        User loggedInUser = userService.getUserWithAuthorities();
+        if(!userService.isLoggedInUserAdmin()) { // If user is not admin, force auto-determined values, else leave input values
+            widgetTemplate.setCreator(loggedInUser);
+            widgetTemplate.setDateCreated(ZonedDateTime.now());
+        }
+        widgetTemplate.setDateLastModified(ZonedDateTime.now());
+        // Save entity
         WidgetTemplate result = widgetTemplateService.save(widgetTemplate);
         return ResponseEntity.created(new URI("/api/widget-templates/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("widgetTemplate", result.getId().toString()))
@@ -57,7 +74,7 @@ public class WidgetTemplateResource {
     }
 
     /**
-     * PUT  /widget-templates : Updates an existing widgetTemplate.
+     * PUT  /widget-templates : Update an existing widgetTemplate.
      *
      * @param widgetTemplate the widgetTemplate to update
      * @return the ResponseEntity with status 200 (OK) and with body the updated widgetTemplate,
@@ -74,6 +91,15 @@ public class WidgetTemplateResource {
         if (widgetTemplate.getId() == null) {
             return createWidgetTemplate(widgetTemplate);
         }
+        // Set auto-determined properties
+        WidgetTemplate old = widgetTemplateService.findOne(widgetTemplate.getId());
+        User loggedInUser = userService.getUserWithAuthorities();
+        if(!userService.isLoggedInUserAdmin()) { // If user is not admin, force auto-determined values, else leave input values
+            widgetTemplate.setCreator(old.getCreator());
+            widgetTemplate.setDateCreated(old.getDateCreated());
+        }
+        widgetTemplate.setDateLastModified(ZonedDateTime.now());
+        // Save entity
         WidgetTemplate result = widgetTemplateService.save(widgetTemplate);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("widgetTemplate", widgetTemplate.getId().toString()))
@@ -81,7 +107,7 @@ public class WidgetTemplateResource {
     }
 
     /**
-     * GET  /widget-templates : get all the widgetTemplates.
+     * GET  /widget-templates : Get all the widgetTemplates.
      *
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of widgetTemplates in body
@@ -94,13 +120,13 @@ public class WidgetTemplateResource {
     public ResponseEntity<List<WidgetTemplate>> getAllWidgetTemplates(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of WidgetTemplates");
-        Page<WidgetTemplate> page = widgetTemplateService.findAll(pageable); 
+        Page<WidgetTemplate> page = widgetTemplateService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/widget-templates");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
-     * GET  /widget-templates/:id : get the "id" widgetTemplate.
+     * GET  /widget-templates/:id : Get the "id" widgetTemplate.
      *
      * @param id the id of the widgetTemplate to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the widgetTemplate, or with status 404 (Not Found)
@@ -120,7 +146,7 @@ public class WidgetTemplateResource {
     }
 
     /**
-     * DELETE  /widget-templates/:id : delete the "id" widgetTemplate.
+     * DELETE  /widget-templates/:id : Delete the "id" widgetTemplate.
      *
      * @param id the id of the widgetTemplate to delete
      * @return the ResponseEntity with status 200 (OK)

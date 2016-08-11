@@ -65,6 +65,9 @@ public class WidgetTemplateResource {
             widgetTemplate.setCreator(loggedInUser);
             widgetTemplate.setDateCreated(ZonedDateTime.now());
         }
+        if(userService.isLoggedInUserAdmin()){
+            throw new CustomParameterizedException("crash boom kaput");
+        }
         widgetTemplate.setDateLastModified(ZonedDateTime.now());
         // Save entity
         WidgetTemplate result = widgetTemplateService.save(widgetTemplate);

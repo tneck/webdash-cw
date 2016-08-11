@@ -151,7 +151,7 @@
         </div>
         <div class="form-group">
             <label class="control-label" translate="webDashCwApp.widgetTemplate.contentType" for="field_contentType">Content Type</label>
-            <select class="form-control" name="contentType" ng-model="vm.widgetTemplateContentType" id="field_contentType" required><!--NOTE: Not vm.widgetTemplate.contentType because contentType is not actually a property of WidgetTemplate -->
+            <select class="form-control" name="contentType" ng-model="vm.widgetTemplateContentType" ng-change="vm.contentTypeChanged()" id="field_contentType" required><!--NOTE: Not vm.widgetTemplate.contentType because contentType is not actually a property of WidgetTemplate -->
                 <option value="URL" translate="webDashCwApp.widgetTemplate.contentTypeUrl">URL</option>
                 <option value="DATA" translate="webDashCwApp.widgetTemplate.contentTypeData">DATA</option>
             </select>

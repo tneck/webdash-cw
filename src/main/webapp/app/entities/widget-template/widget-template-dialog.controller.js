@@ -20,6 +20,14 @@
         vm.users = User.query();
         vm.widgettemplatecategories = WidgetTemplateCategory.query();
 
+        if(!(!vm.widgetTemplate.contentUrl)) { // If content URL is not empty, set content type to URL
+            vm.widgetTemplateContentType = "URL";
+        } else { // Else set content type to data
+            vm.widgetTemplateContentType = "DATA";
+        }
+
+        vm.contentTypeChanged = contentTypeChanged;
+
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
         });
@@ -66,6 +74,16 @@
 
         function openCalendar (date) {
             vm.datePickerOpenStatus[date] = true;
-        }
+        };
+
+        function contentTypeChanged () {
+            console.log(vm.widgetTemplate);
+            if(vm.widgetTemplateContentType === "URL") { // If type switched to URL, clear data
+                var wt = vm.widgetTemplate;
+                wt.dataLibraries = wt.dataHtml = wt.dataCss = wt.dataJavascript = wt.dataInputVariables = "";
+            } else { // Else clear URL
+                vm.widgetTemplate.contentUrl = "";
+            }
+        };
     }
 })();

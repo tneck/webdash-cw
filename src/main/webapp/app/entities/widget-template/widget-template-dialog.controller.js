@@ -20,12 +20,8 @@
         vm.users = User.query();
         vm.widgettemplatecategories = WidgetTemplateCategory.query();
 
-        if(!(!vm.widgetTemplate.contentUrl)) { // If content URL is not empty, set content type to URL
-            vm.widgetTemplateContentType = "URL";
-        } else { // Else set content type to data
-            vm.widgetTemplateContentType = "DATA";
-        }
-
+        vm.widgetTemplateContentType = !vm.widgetTemplate.contentUrl ? "DATA" : "URL";
+        
         vm.contentTypeChanged = contentTypeChanged;
 
         $timeout(function (){

@@ -60,15 +60,11 @@ public class WidgetTemplateResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("widgetTemplate", "idexists", "A new widgetTemplate cannot already have an ID")).body(null);
         }
         // Set auto-determined properties
-        User loggedInUser = userService.getUserWithAuthorities();
-        if(!userService.isLoggedInUserAdmin()) { // If user is not admin, force auto-determined values, else leave input values
-            widgetTemplate.setCreator(loggedInUser);
-            widgetTemplate.setDateCreated(ZonedDateTime.now());
-        }
-        if(userService.isLoggedInUserAdmin()){
-            throw new CustomParameterizedException("crash boom kaput");
-        }
+        widgetTemplate.setDateCreated(ZonedDateTime.now());
         widgetTemplate.setDateLastModified(ZonedDateTime.now());
+        if(!userService.isLoggedInUserAdmin() || widgetTemplate.getCreator() == null) { // If user is not admin or creator property is null, force auto-determined creator, else leave custom creator
+            widgetTemplate.setCreator(userService.getUserWithAuthorities());
+        }
         // Save entity
         WidgetTemplate result = widgetTemplateService.save(widgetTemplate);
         return ResponseEntity.created(new URI("/api/widget-templates/" + result.getId()))
@@ -95,13 +91,14 @@ public class WidgetTemplateResource {
             return createWidgetTemplate(widgetTemplate);
         }
         // Set auto-determined properties
+        widgetTemplate.setDateLastModified(ZonedDateTime.now());
         WidgetTemplate old = widgetTemplateService.findOne(widgetTemplate.getId());
-        User loggedInUser = userService.getUserWithAuthorities();
-        if(!userService.isLoggedInUserAdmin()) { // If user is not admin, force auto-determined values, else leave input values
+        if(!userService.isLoggedInUserAdmin()) { // If user is not admin, force auto-determined values, else leave (custom) values
             widgetTemplate.setCreator(old.getCreator());
             widgetTemplate.setDateCreated(old.getDateCreated());
+        } else if(widgetTemplate.getDateCreated() == null) { // But if date created is left null, regardless of user role, force its value to its old value (dateCreated can never be null)
+            widgetTemplate.setDateCreated(old.getDateCreated());
         }
-        widgetTemplate.setDateLastModified(ZonedDateTime.now());
         // Save entity
         WidgetTemplate result = widgetTemplateService.save(widgetTemplate);
         return ResponseEntity.ok()

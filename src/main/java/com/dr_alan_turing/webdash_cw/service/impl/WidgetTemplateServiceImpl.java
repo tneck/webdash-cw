@@ -21,13 +21,13 @@ import java.util.List;
 public class WidgetTemplateServiceImpl implements WidgetTemplateService{
 
     private final Logger log = LoggerFactory.getLogger(WidgetTemplateServiceImpl.class);
-    
+
     @Inject
     private WidgetTemplateRepository widgetTemplateRepository;
-    
+
     /**
      * Save a widgetTemplate.
-     * 
+     *
      * @param widgetTemplate the entity to save
      * @return the persisted entity
      */
@@ -39,16 +39,31 @@ public class WidgetTemplateServiceImpl implements WidgetTemplateService{
 
     /**
      *  Get all the widgetTemplates.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<WidgetTemplate> findAll(Pageable pageable) {
         log.debug("Request to get all WidgetTemplates");
-        Page<WidgetTemplate> result = widgetTemplateRepository.findAll(pageable); 
+        Page<WidgetTemplate> result = widgetTemplateRepository.findAll(pageable);
         return result;
     }
+
+
+    /**
+     *  Get all the widgetTemplates of the creator with the given id.
+     *
+     *  @param creatorId the id of the creator for which to get the widgetTemplates
+     *  @param pageable the pagination information
+     *  @return the list of widgetTemplates
+     */
+    public Page<WidgetTemplate> findAllByCreatorId(Long creatorId, Pageable pageable) {
+        log.debug("Request to get all WidgetTemplates");
+        Page<WidgetTemplate> result = widgetTemplateRepository.findAllByCreatorId(creatorId, pageable);
+        return result;
+    }
+
 
     /**
      *  Get one widgetTemplate by id.
@@ -56,7 +71,7 @@ public class WidgetTemplateServiceImpl implements WidgetTemplateService{
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public WidgetTemplate findOne(Long id) {
         log.debug("Request to get WidgetTemplate : {}", id);
         WidgetTemplate widgetTemplate = widgetTemplateRepository.findOne(id);
@@ -65,7 +80,7 @@ public class WidgetTemplateServiceImpl implements WidgetTemplateService{
 
     /**
      *  Delete the  widgetTemplate by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {

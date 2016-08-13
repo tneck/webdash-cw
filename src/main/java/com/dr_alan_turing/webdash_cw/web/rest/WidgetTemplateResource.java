@@ -126,6 +126,27 @@ public class WidgetTemplateResource {
     }
 
     /**
+     * GET  /widget-templates : Get all the logged in user's widgetTemplates.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of widgetTemplates in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
+     */
+    @RequestMapping(value = "/widget-templates/my",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<WidgetTemplate>> getMyWidgetTemplates(Pageable pageable)
+        throws URISyntaxException {
+        Long loggedInUserId = userService.getLoggedInUserId();
+        log.debug("REST request to get a page of WidgetTemplates from User {}", loggedInUserId);
+        Page<WidgetTemplate> page = widgetTemplateService.findAllByCreatorId(loggedInUserId, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/widget-templates/my");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+
+    /**
      * GET  /widget-templates/:id : Get the "id" widgetTemplate.
      *
      * @param id the id of the widgetTemplate to retrieve

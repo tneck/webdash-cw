@@ -13,32 +13,42 @@ public interface WidgetTemplateService {
 
     /**
      * Save a widgetTemplate.
-     * 
-     * @param widgetTemplate the entity to save
-     * @return the persisted entity
+     *
+     * @param widgetTemplate the widgetTemplate to save
+     * @return the persisted widgetTemplate
      */
     WidgetTemplate save(WidgetTemplate widgetTemplate);
 
     /**
      *  Get all the widgetTemplates.
-     *  
+     *
      *  @param pageable the pagination information
-     *  @return the list of entities
+     *  @return the list of widgetTemplates
      */
     Page<WidgetTemplate> findAll(Pageable pageable);
 
     /**
+     *  Get all the widgetTemplates of the user with the given id.
+     *
+     *  @param creatorId the id of the creatorId for which to get the widgetTemplates
+     *  @param pageable the pagination information
+     *  @return the list of widgetTemplates
+     */
+    Page<WidgetTemplate> findAllByCreatorId(Long creatorId, Pageable pageable);
+
+    /**
      *  Get the "id" widgetTemplate.
-     *  
-     *  @param id the id of the entity
-     *  @return the entity
+     *
+     *  @param id the id of the widgetTemplate
+     *  @return the widgetTemplate
      */
     WidgetTemplate findOne(Long id);
 
     /**
      *  Delete the "id" widgetTemplate.
-     *  
-     *  @param id the id of the entity
+     *
+     *  @param id the id of the widgetTemplate
      */
     void delete(Long id);
+
 }

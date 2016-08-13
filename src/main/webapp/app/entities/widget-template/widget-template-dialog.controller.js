@@ -21,7 +21,7 @@
         vm.widgettemplatecategories = WidgetTemplateCategory.query();
 
         vm.widgetTemplateContentType = !vm.widgetTemplate.contentUrl ? "DATA" : "URL";
-        
+
         vm.contentTypeChanged = contentTypeChanged;
 
         $timeout(function (){
